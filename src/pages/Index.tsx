@@ -225,7 +225,7 @@ const Index = () => {
           </nav>
           <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
             <DialogTrigger asChild>
-              <Button className="gradient-primary hover:opacity-90 transition-opacity">
+              <Button className="gradient-primary btn-glow">
                 Записаться
               </Button>
             </DialogTrigger>
@@ -331,7 +331,7 @@ const Index = () => {
                   </div>
                 )}
 
-                <Button onClick={handleBooking} className="w-full gradient-primary">
+                <Button onClick={handleBooking} className="w-full gradient-primary btn-glow">
                   Отправить заявку
                 </Button>
               </div>
@@ -355,7 +355,7 @@ const Index = () => {
               Опытные мастера, современное оборудование, гарантия качества.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="gradient-primary hover:opacity-90 text-lg" onClick={() => setIsBookingOpen(true)}>
+              <Button size="lg" className="gradient-primary btn-glow text-lg" onClick={() => setIsBookingOpen(true)}>
                 Записаться онлайн
                 <Icon name="ArrowRight" className="ml-2" size={20} />
               </Button>
@@ -471,7 +471,7 @@ const Index = () => {
                         </div>
                         <div className="text-sm text-muted-foreground mt-1">Предварительная стоимость</div>
                       </div>
-                      <Button size="lg" className="gradient-primary" onClick={() => setIsBookingOpen(true)}>
+                      <Button size="lg" className="gradient-primary btn-glow" onClick={() => setIsBookingOpen(true)}>
                         Записаться на услуги
                         <Icon name="ArrowRight" className="ml-2" size={20} />
                       </Button>
@@ -547,7 +547,7 @@ const Index = () => {
                       <Icon name="Clock" size={14} />
                       <span>Действует до: {promo.validUntil}</span>
                     </div>
-                    <Button className="w-full gradient-primary mt-4" onClick={() => setIsBookingOpen(true)}>
+                    <Button className="w-full gradient-primary btn-glow mt-4" onClick={() => setIsBookingOpen(true)}>
                       Воспользоваться
                     </Button>
                   </div>
