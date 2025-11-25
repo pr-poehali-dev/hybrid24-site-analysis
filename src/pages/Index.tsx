@@ -14,14 +14,14 @@ import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 
 const brands = [
-  { name: 'Toyota', logo: '🚗' },
-  { name: 'BMW', logo: '🏎️' },
-  { name: 'Mercedes', logo: '🚙' },
-  { name: 'Audi', logo: '🚕' },
-  { name: 'Volkswagen', logo: '🚐' },
-  { name: 'Hyundai', logo: '🚗' },
-  { name: 'Kia', logo: '🚙' },
-  { name: 'Nissan', logo: '🏎️' }
+  { name: 'Toyota', logo: 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/4e08abc9-6dc7-4175-88e7-4506631ccebe.jpg' },
+  { name: 'BMW', logo: 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/4de578b1-4cb2-4791-8ab0-306463ecef8f.jpg' },
+  { name: 'Mercedes', logo: 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/5fcb3172-9037-4e6e-8252-979e327dd734.jpg' },
+  { name: 'Audi', logo: 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/ba02db5f-9801-4420-8836-39f52c1eb11f.jpg' },
+  { name: 'Volkswagen', logo: 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/84abd4d1-43db-449e-a754-37eaca2356b7.jpg' },
+  { name: 'Hyundai', logo: 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/b96818be-6317-4095-a3eb-ed039af61550.jpg' },
+  { name: 'Kia', logo: 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/97ee8ca9-4c2a-4454-81ee-3c05a54f2661.jpg' },
+  { name: 'Nissan', logo: 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/94c95c26-2e2d-4849-929a-bbc56961a2b5.jpg' }
 ];
 
 const promotions = [
@@ -504,7 +504,7 @@ const Index = () => {
                 className="hover-scale cursor-pointer text-center p-6 animate-fade-in"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <div className="text-5xl mb-2">{brand.logo}</div>
+                <img src={brand.logo} alt={brand.name} className="w-full h-16 object-contain mb-2" />
                 <p className="font-semibold text-sm">{brand.name}</p>
               </Card>
             ))}
