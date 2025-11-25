@@ -521,7 +521,7 @@ const Sections = ({ setIsBookingOpen }: SectionsProps) => {
                     <Icon name="Clock" size={24} className="text-white" />
                   </div>
                   <CardTitle>Режим работы</CardTitle>
-                  <CardDescription className="text-lg">Пн-Вс: 9:00 - 21:00</CardDescription>
+                  <CardDescription className="text-lg">Пн-Вс: 8:15 - 19:45</CardDescription>
                 </CardHeader>
               </Card>
             </div>
