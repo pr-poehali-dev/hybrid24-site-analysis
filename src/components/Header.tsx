@@ -28,10 +28,10 @@ const Header = ({ isBookingOpen, setIsBookingOpen }: HeaderProps) => {
 
   return (
     <header className="border-b border-border backdrop-blur-sm bg-background/80 sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Icon name="Zap" className="text-primary" size={32} />
-          <span className="text-2xl font-bold gradient-primary bg-clip-text text-transparent">AutoService</span>
+      <div className="container mx-auto px-3 sm:px-4 py-3 md:py-4 flex items-center justify-between">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <Icon name="Zap" className="text-primary" size={24} />
+          <span className="text-lg sm:text-xl md:text-2xl font-bold gradient-primary bg-clip-text text-transparent">AutoService</span>
         </div>
 
         <nav className="hidden md:flex gap-6">

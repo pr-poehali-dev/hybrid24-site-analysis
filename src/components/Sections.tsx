@@ -191,25 +191,25 @@ const Sections = ({ setIsBookingOpen }: SectionsProps) => {
 
   return (
     <>
-      <section className="py-20 md:py-32">
+      <section className="py-12 md:py-20 lg:py-32">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
-            <Badge className="mb-4 gradient-accent">Быстро • Качественно • Надёжно</Badge>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <Badge className="mb-3 md:mb-4 gradient-accent text-xs md:text-sm">Быстро • Качественно • Надёжно</Badge>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight">
               Профессиональный
               <br />
               <span className="gradient-primary bg-clip-text text-transparent">автосервис</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground mb-6 md:mb-8 max-w-2xl">
               Техническое обслуживание и ремонт автомобилей любой сложности. 
               Опытные мастера, современное оборудование, гарантия качества.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="gradient-primary btn-glow text-lg" onClick={() => setIsBookingOpen(true)}>
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+              <Button size="lg" className="gradient-primary btn-glow text-base md:text-lg w-full sm:w-auto" onClick={() => setIsBookingOpen(true)}>
                 Записаться онлайн
                 <Icon name="ArrowRight" className="ml-2" size={20} />
               </Button>
-              <Button size="lg" variant="outline" className="text-lg" asChild>
+              <Button size="lg" variant="outline" className="text-base md:text-lg w-full sm:w-auto" asChild>
                 <a href="tel:+79230166750">
                   <Icon name="Phone" className="mr-2" size={20} />
                   +7 (923) 016-67-50
@@ -220,11 +220,11 @@ const Sections = ({ setIsBookingOpen }: SectionsProps) => {
         </div>
       </section>
 
-      <section id="services" className="py-16 bg-card/30">
+      <section id="services" className="py-12 md:py-16 bg-card/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Наши услуги</h2>
-            <p className="text-muted-foreground text-lg">Полный спектр услуг для вашего автомобиля</p>
+          <div className="text-center mb-8 md:mb-12 animate-fade-in">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">Наши услуги</h2>
+            <p className="text-muted-foreground text-base md:text-lg">Полный спектр услуг для вашего автомобиля</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
@@ -260,12 +260,12 @@ const Sections = ({ setIsBookingOpen }: SectionsProps) => {
         </div>
       </section>
 
-      <section id="calculator" className="py-16">
+      <section id="calculator" className="py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12 animate-fade-in">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">Калькулятор стоимости</h2>
-              <p className="text-muted-foreground text-lg">Рассчитайте примерную стоимость услуг</p>
+            <div className="text-center mb-8 md:mb-12 animate-fade-in">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">Калькулятор стоимости</h2>
+              <p className="text-muted-foreground text-base md:text-lg">Рассчитайте примерную стоимость услуг</p>
             </div>
             <Card className="animate-fade-in">
               <CardHeader>
@@ -311,16 +311,16 @@ const Sections = ({ setIsBookingOpen }: SectionsProps) => {
                 </div>
 
                 {selectedServices.length > 0 && (
-                  <div className="bg-gradient-to-r from-primary/20 to-secondary/20 p-6 rounded-lg border border-primary/30">
+                  <div className="bg-gradient-to-r from-primary/20 to-secondary/20 p-4 md:p-6 rounded-lg border border-primary/30">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                       <div>
-                        <div className="text-sm text-muted-foreground mb-1">Выбрано услуг: {selectedServices.length}</div>
-                        <div className="text-3xl font-bold gradient-primary bg-clip-text text-transparent">
+                        <div className="text-xs md:text-sm text-muted-foreground mb-1">Выбрано услуг: {selectedServices.length}</div>
+                        <div className="text-2xl md:text-3xl font-bold gradient-primary bg-clip-text text-transparent">
                           {calculateTotal().toLocaleString()} ₽
                         </div>
-                        <div className="text-sm text-muted-foreground mt-1">Предварительная стоимость</div>
+                        <div className="text-xs md:text-sm text-muted-foreground mt-1">Предварительная стоимость</div>
                       </div>
-                      <Button size="lg" className="gradient-primary btn-glow" onClick={() => setIsBookingOpen(true)}>
+                      <Button size="lg" className="gradient-primary btn-glow w-full md:w-auto" onClick={() => setIsBookingOpen(true)}>
                         Записаться на услуги
                         <Icon name="ArrowRight" className="ml-2" size={20} />
                       </Button>
@@ -340,31 +340,31 @@ const Sections = ({ setIsBookingOpen }: SectionsProps) => {
         </div>
       </section>
 
-      <section id="brands" className="py-16">
+      <section id="brands" className="py-12 md:py-16">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Бренды, с которыми мы работаем</h2>
-            <p className="text-muted-foreground text-lg">Обслуживаем все популярные марки автомобилей</p>
+          <div className="text-center mb-8 md:mb-12 animate-fade-in">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">Бренды, с которыми мы работаем</h2>
+            <p className="text-muted-foreground text-base md:text-lg">Обслуживаем все популярные марки автомобилей</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-3 md:gap-4">
             {brands.map((brand, index) => (
               <Card
                 key={index}
-                className="hover-scale cursor-pointer text-center p-8 animate-fade-in bg-white"
+                className="hover-scale cursor-pointer text-center p-4 md:p-6 lg:p-8 animate-fade-in bg-white"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <img src={brand.logo} alt={brand.name} className="w-full h-24 object-contain" />
+                <img src={brand.logo} alt={brand.name} className="w-full h-12 sm:h-16 md:h-20 lg:h-24 object-contain" />
               </Card>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="promotions" className="py-16 bg-card/30">
+      <section id="promotions" className="py-12 md:py-16 bg-card/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Акции и спецпредложения</h2>
-            <p className="text-muted-foreground text-lg">Выгодные предложения для наших клиентов</p>
+          <div className="text-center mb-8 md:mb-12 animate-fade-in">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">Акции и спецпредложения</h2>
+            <p className="text-muted-foreground text-base md:text-lg">Выгодные предложения для наших клиентов</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {promotions.map((promo, index) => (
@@ -406,11 +406,11 @@ const Sections = ({ setIsBookingOpen }: SectionsProps) => {
         </div>
       </section>
 
-      <section id="reviews" className="py-16">
+      <section id="reviews" className="py-12 md:py-16">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Отзывы клиентов</h2>
-            <p className="text-muted-foreground text-lg">Что говорят о нас наши клиенты</p>
+          <div className="text-center mb-8 md:mb-12 animate-fade-in">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">Отзывы клиентов</h2>
+            <p className="text-muted-foreground text-base md:text-lg">Что говорят о нас наши клиенты</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
             {reviews.map((review, index) => (
@@ -445,11 +445,11 @@ const Sections = ({ setIsBookingOpen }: SectionsProps) => {
         </div>
       </section>
 
-      <section id="blog" className="py-16 bg-card/30">
+      <section id="blog" className="py-12 md:py-16 bg-card/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Полезный блог</h2>
-            <p className="text-muted-foreground text-lg">Статьи и советы по обслуживанию автомобиля</p>
+          <div className="text-center mb-8 md:mb-12 animate-fade-in">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">Полезный блог</h2>
+            <p className="text-muted-foreground text-base md:text-lg">Статьи и советы по обслуживанию автомобиля</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {blogPosts.map((post, index) => (
@@ -488,10 +488,10 @@ const Sections = ({ setIsBookingOpen }: SectionsProps) => {
         </div>
       </section>
 
-      <section id="contacts" className="py-16 bg-card/30">
+      <section id="contacts" className="py-12 md:py-16 bg-card/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Свяжитесь с нами</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">Свяжитесь с нами</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
               <Card className="hover-scale">
                 <CardHeader>
