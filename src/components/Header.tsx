@@ -27,80 +27,97 @@ const Header = ({ isBookingOpen, setIsBookingOpen }: HeaderProps) => {
   };
 
   return (
-    <header className="border-b border-border backdrop-blur-sm bg-background/80 sticky top-0 z-50">
-      <div className="container mx-auto px-3 sm:px-4 py-3 md:py-4 flex items-center justify-between">
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          <Icon name="Zap" className="text-primary" size={24} />
-          <span className="text-lg sm:text-xl md:text-2xl font-bold gradient-primary bg-clip-text text-transparent">AutoService</span>
-        </div>
+    <header 
+      className="border-b border-border sticky top-0 z-50 bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: 'url(https://cdn.poehali.dev/files/690e89b6-5b7c-486e-a234-151943ca4841.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
+      <div className="backdrop-blur-sm bg-white/95">
+        <div className="container mx-auto px-3 sm:px-4 py-3 md:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <Icon name="Zap" className="text-primary" size={28} />
+            <span className="text-lg sm:text-xl md:text-2xl font-bold gradient-primary bg-clip-text text-transparent">AutoService</span>
+          </div>
 
-        <nav className="hidden md:flex gap-6">
-          {navItems.map(item => (
+          <nav className="hidden lg:flex gap-8 items-center">
+            {navItems.map(item => (
+              <a 
+                key={item.href}
+                href={item.href} 
+                className="hover:text-primary transition-colors text-sm font-medium"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
             <a 
-              key={item.href}
-              href={item.href} 
-              className="hover:text-primary transition-colors"
+              href="tel:+79230166750" 
+              className="hidden sm:flex items-center gap-2 text-foreground hover:text-primary transition-colors"
             >
-              {item.label}
+              <Icon name="Phone" size={20} className="text-primary" />
+              <span className="font-semibold text-sm md:text-base">+7 (923) 016-67-50</span>
             </a>
-          ))}
-        </nav>
 
-        <div className="flex items-center gap-2">
-          <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
-            <DialogTrigger asChild>
-              <Button className="gradient-primary btn-glow hidden md:flex">
-                Записаться
-              </Button>
-            </DialogTrigger>
-          </Dialog>
+            <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
+              <DialogTrigger asChild>
+                <Button className="gradient-primary btn-glow hidden md:flex">
+                  Записаться на сервис
+                </Button>
+              </DialogTrigger>
+            </Dialog>
 
-          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Icon name="Menu" size={24} />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px]">
-              <SheetHeader>
-                <SheetTitle className="flex items-center gap-2">
-                  <Icon name="Zap" className="text-primary" size={24} />
-                  <span className="gradient-primary bg-clip-text text-transparent">AutoService</span>
-                </SheetTitle>
-              </SheetHeader>
-              <nav className="flex flex-col gap-4 mt-8">
-                {navItems.map(item => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => handleNavClick(item.href)}
-                    className="text-lg hover:text-primary transition-colors py-2"
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="lg:hidden">
+                  <Icon name="Menu" size={24} />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px]">
+                <SheetHeader>
+                  <SheetTitle className="flex items-center gap-2">
+                    <Icon name="Zap" className="text-primary" size={24} />
+                    <span className="gradient-primary bg-clip-text text-transparent">AutoService</span>
+                  </SheetTitle>
+                </SheetHeader>
+                <nav className="flex flex-col gap-4 mt-8">
+                  {navItems.map(item => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => handleNavClick(item.href)}
+                      className="text-lg hover:text-primary transition-colors py-2"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                  <Button 
+                    className="gradient-primary btn-glow w-full mt-4" 
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      setIsBookingOpen(true);
+                    }}
                   >
-                    {item.label}
-                  </a>
-                ))}
-                <Button 
-                  className="gradient-primary btn-glow w-full mt-4" 
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    setIsBookingOpen(true);
-                  }}
-                >
-                  Записаться
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="w-full" 
-                  asChild
-                >
-                  <a href="tel:+79230166750">
-                    <Icon name="Phone" className="mr-2" size={18} />
-                    +7 (923) 016-67-50
-                  </a>
-                </Button>
-              </nav>
-            </SheetContent>
-          </Sheet>
+                    Записаться на сервис
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full" 
+                    asChild
+                  >
+                    <a href="tel:+79230166750">
+                      <Icon name="Phone" className="mr-2" size={18} />
+                      +7 (923) 016-67-50
+                    </a>
+                  </Button>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </header>
