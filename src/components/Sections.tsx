@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -354,13 +355,18 @@ const Sections = ({ setIsBookingOpen }: SectionsProps) => {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-3 md:gap-4">
             {brands.map((brand, index) => (
-              <Card
+              <Link
                 key={index}
-                className="hover-scale cursor-pointer text-center p-4 md:p-6 lg:p-8 animate-fade-in bg-white"
-                style={{ animationDelay: `${index * 50}ms` }}
+                to={`/brand/${brand.name.toLowerCase()}`}
               >
-                <img src={brand.logo} alt={brand.name} className="w-full h-12 sm:h-16 md:h-20 lg:h-24 object-contain" />
-              </Card>
+                <Card
+                  className="hover-scale cursor-pointer text-center p-4 md:p-6 lg:p-8 animate-fade-in bg-white"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  <img src={brand.logo} alt={brand.name} className="w-full h-12 sm:h-16 md:h-20 lg:h-24 object-contain mb-2" />
+                  <p className="text-sm font-medium mt-2">{brand.name}</p>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
