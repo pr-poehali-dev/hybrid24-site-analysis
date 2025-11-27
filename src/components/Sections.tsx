@@ -197,8 +197,8 @@ const Sections = ({ setIsBookingOpen }: SectionsProps) => {
           backgroundImage: 'url(https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/6197d68f-2afa-469a-bbfc-68154f818e8e.jpg)',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent hero-gradient"></div>
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent hero-gradient -z-10"></div>
+        <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl">
             <Badge className="mb-3 md:mb-4 gradient-accent text-xs md:text-sm">Быстро • Качественно • Надёжно</Badge>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight">
