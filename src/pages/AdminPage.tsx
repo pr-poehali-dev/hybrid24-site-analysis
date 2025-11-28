@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -38,10 +39,30 @@ const statusLabels: Record<string, string> = {
 };
 
 const AdminPage = () => {
+  const navigate = useNavigate();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [updatingId, setUpdatingId] = useState<number | null>(null);
+
+  // Check authentication
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('adminAuth');
+    const authTime = localStorage.getItem('adminAuthTime');
+    
+    if (!isAuthenticated || !authTime) {
+      navigate('/admin/login');
+      return;
+    }
+    
+    // Check if session is older than 24 hours
+    const hoursSinceAuth = (Date.now() - parseInt(authTime)) / (1000 * 60 * 60);
+    if (hoursSinceAuth > 24) {
+      localStorage.removeItem('adminAuth');
+      localStorage.removeItem('adminAuthTime');
+      navigate('/admin/login');
+    }
+  }, [navigate]);
 
   const fetchBookings = async () => {
     setLoading(true);
@@ -133,9 +154,22 @@ const AdminPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Админ-панель</h1>
-          <p className="text-muted-foreground">Управление заявками клиентов</p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">Админ-панель</h1>
+            <p className="text-muted-foreground">Управление заявками клиентов</p>
+          </div>
+          <Button
+            variant="outline"
+            onClick={() => {
+              localStorage.removeItem('adminAuth');
+              localStorage.removeItem('adminAuthTime');
+              navigate('/admin/login');
+            }}
+          >
+            <Icon name="LogOut" className="mr-2" size={18} />
+            Выйти
+          </Button>
         </div>
 
         {/* Statistics */}
