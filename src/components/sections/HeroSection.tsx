@@ -9,19 +9,20 @@ interface HeroSectionProps {
 const HeroSection = ({ setIsBookingOpen }: HeroSectionProps) => {
   return (
     <section 
-      className="py-12 md:py-20 lg:py-32 bg-no-repeat relative hero-banner"
+      className="py-12 md:py-20 lg:py-32 bg-no-repeat bg-right relative hero-banner"
       style={{
         backgroundImage: 'url(https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/6197d68f-2afa-469a-bbfc-68154f818e8e.jpg)',
+        backgroundSize: '50%',
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent hero-gradient -z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-white via-white/98 to-white/70 hero-gradient -z-10"></div>
       <div className="container mx-auto px-4 relative">
         <div className="max-w-3xl">
           <Badge className="mb-3 md:mb-4 gradient-accent text-xs md:text-sm">Быстро • Качественно • Надёжно</Badge>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight">
-            Сертифицированная станция
+            Сертифицированная станция технического
             <br />
-            <span className="gradient-primary bg-clip-text text-transparent">технического обслуживания</span>
+            <span className="gradient-primary bg-clip-text text-transparent">обслуживания гибридных и электромобилей</span>
           </h1>
           <p className="text-base md:text-lg lg:text-xl text-muted-foreground mb-6 md:mb-8 max-w-2xl">
             Техническое обслуживание и ремонт автомобилей любой сложности. 
