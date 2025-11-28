@@ -102,7 +102,7 @@ const ServicesSection = ({ setIsBookingOpen }: ServicesSectionProps) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
               <Card
-                key={service.id}
+                key={`service-${service.id}`}
                 className="hover-scale cursor-pointer hover:border-primary/50 transition-all animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
@@ -149,7 +149,7 @@ const ServicesSection = ({ setIsBookingOpen }: ServicesSectionProps) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {services.map(service => (
                     <div
-                      key={service.id}
+                      key={`calc-${service.id}`}
                       className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
                         selectedServices.includes(service.id)
                           ? 'border-primary bg-primary/5'
@@ -244,7 +244,7 @@ const ServicesSection = ({ setIsBookingOpen }: ServicesSectionProps) => {
             <div ref={scrollContainerRef} className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth">
               {brands.map((brand, index) => (
                 <Link
-                  key={brand.id}
+                  key={`brand-${brand.id}`}
                   to={`/brand/${brand.slug}`}
                   className="flex-shrink-0"
                 >
