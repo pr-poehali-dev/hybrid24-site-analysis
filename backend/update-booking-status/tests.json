@@ -1,0 +1,32 @@
+{
+  "tests": [
+    {
+      "name": "Update booking status to confirmed",
+      "method": "POST",
+      "body": {
+        "booking_id": 1,
+        "status": "confirmed"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "booking_id": "number",
+        "status": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Reject invalid status",
+      "method": "POST",
+      "body": {
+        "booking_id": 1,
+        "status": "invalid_status"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

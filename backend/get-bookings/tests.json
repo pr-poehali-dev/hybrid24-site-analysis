@@ -1,0 +1,26 @@
+{
+  "tests": [
+    {
+      "name": "Get all bookings",
+      "method": "GET",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "bookings": "array",
+        "total": "number"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get bookings by status",
+      "method": "GET",
+      "queryParams": {
+        "status": "new"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "bookings": "array"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
