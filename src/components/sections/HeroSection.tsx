@@ -22,7 +22,7 @@ const HeroSection = ({ setIsBookingOpen }: HeroSectionProps) => {
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight">
             Сертифицированная станция технического
             <br />
-            <span className="gradient-primary bg-clip-text text-transparent">обслуживания гибридных и электромобилей</span>
+            обслуживания гибридных и электромобилей
           </h1>
           <p className="text-base md:text-lg lg:text-xl text-muted-foreground mb-6 md:mb-8 max-w-2xl">
             Техническое обслуживание и ремонт автомобилей любой сложности. 
