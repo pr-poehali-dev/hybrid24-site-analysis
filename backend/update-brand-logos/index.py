@@ -5,7 +5,7 @@ from typing import Dict, Any
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Business: Обновляет логотипы всех брендов в базе данных
+    Business: Обновляет логотипы всех брендов в базе данных с carlogos.org
     Args: event - HTTP запрос, context - контекст выполнения
     Returns: HTTP response с результатом
     '''
@@ -42,37 +42,37 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     cur = conn.cursor()
     
     logos_map = {
-        'toyota': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/4e08abc9-6dc7-4175-88e7-4506631ccebe.jpg',
-        'honda': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/honda-logo.png',
-        'nissan': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/94c95c26-2e2d-4849-929a-bbc56961a2b5.jpg',
-        'lexus': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/lexus-logo.png',
-        'mazda': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/mazda-logo.png',
-        'mitsubishi': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/mitsubishi-logo.png',
-        'subaru': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/subaru-logo.png',
-        'suzuki': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/suzuki-logo.png',
-        'acura': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/acura-logo.png',
-        'hyundai': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/b96818be-6317-4095-a3eb-ed039af61550.jpg',
-        'kia': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/97ee8ca9-4c2a-4454-81ee-3c05a54f2661.jpg',
-        'haval': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/haval-logo.png',
-        'geely': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/geely-logo.png',
-        'changan': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/changan-logo.png',
-        'belgee': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/belgee-logo.png',
-        'lifan': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/lifan-logo.png',
-        'jetour': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/jetour-logo.png',
-        'tank': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/tank-logo.png',
-        'exeed': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/exeed-logo.png',
-        'omoda': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/omoda-logo.png',
-        'gac': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/gac-logo.png',
-        'li auto': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/liauto-logo.png',
-        'jac': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/jac-logo.png',
-        'voyah': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/voyah-logo.png',
-        'zeekr': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/zeekr-logo.png',
-        'hongqi': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/hongqi-logo.png',
-        'faw': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/faw-logo.png',
-        'dongfeng': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/dongfeng-logo.png',
-        'jaecoo': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/jaecoo-logo.png',
-        'bestune': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/bestune-logo.png',
-        'chery': 'https://cdn.poehali.dev/projects/06c15a5e-698d-45c4-8ef4-b26fa9657aca/files/chery-logo.png'
+        'toyota': 'https://www.carlogos.org/logo/Toyota-logo-1989-3700x1200.png',
+        'honda': 'https://www.carlogos.org/logo/Honda-logo-1990-2560x1440.png',
+        'nissan': 'https://www.carlogos.org/logo/Nissan-logo-2013-1440x900.png',
+        'lexus': 'https://www.carlogos.org/logo/Lexus-logo-1988-1440x900.png',
+        'mazda': 'https://www.carlogos.org/logo/Mazda-logo-1997-1440x900.png',
+        'mitsubishi': 'https://www.carlogos.org/logo/Mitsubishi-logo-1990-2560x1440.png',
+        'subaru': 'https://www.carlogos.org/logo/Subaru-logo-2003-2560x1440.png',
+        'suzuki': 'https://www.carlogos.org/logo/Suzuki-logo-5000x2500.png',
+        'acura': 'https://www.carlogos.org/logo/Acura-logo-2560x1440.png',
+        'hyundai': 'https://www.carlogos.org/logo/Hyundai-logo-2011-1440x900.png',
+        'kia': 'https://www.carlogos.org/logo/Kia-logo-2560x1440.png',
+        'haval': 'https://www.carlogos.org/logo/Haval-logo-2013-2560x1440.png',
+        'geely': 'https://www.carlogos.org/logo/Geely-logo-2560x1440.png',
+        'changan': 'https://www.carlogos.org/logo/Changan-logo-2010-2560x1440.png',
+        'belgee': 'https://www.carlogos.org/logo/Belgee-logo-2560x1440.png',
+        'lifan': 'https://www.carlogos.org/logo/Lifan-logo-2560x1440.png',
+        'jetour': 'https://www.carlogos.org/logo/Jetour-logo-2018-2560x1440.png',
+        'tank': 'https://www.carlogos.org/logo/Tank-logo-2560x1440.png',
+        'exeed': 'https://www.carlogos.org/logo/Exeed-logo-2017-2560x1440.png',
+        'omoda': 'https://www.carlogos.org/logo/Omoda-logo-2560x1440.png',
+        'gac': 'https://www.carlogos.org/logo/GAC-logo-2560x1440.png',
+        'li auto': 'https://www.carlogos.org/logo/Li-Auto-logo-2560x1440.png',
+        'jac': 'https://www.carlogos.org/logo/JAC-logo-2560x1440.png',
+        'voyah': 'https://www.carlogos.org/logo/Voyah-logo-2560x1440.png',
+        'zeekr': 'https://www.carlogos.org/logo/Zeekr-logo-2021-2560x1440.png',
+        'hongqi': 'https://www.carlogos.org/logo/Hongqi-logo-2018-2560x1440.png',
+        'faw': 'https://www.carlogos.org/logo/FAW-logo-2560x1440.png',
+        'dongfeng': 'https://www.carlogos.org/logo/Dongfeng-logo-2560x1440.png',
+        'jaecoo': 'https://www.carlogos.org/logo/Jaecoo-logo-2560x1440.png',
+        'bestune': 'https://www.carlogos.org/logo/Bestune-logo-2560x1440.png',
+        'chery': 'https://www.carlogos.org/logo/Chery-logo-2013-2560x1440.png'
     }
     
     updated_count = 0
