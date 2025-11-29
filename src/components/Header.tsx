@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -37,13 +38,13 @@ const Header = ({ isBookingOpen, setIsBookingOpen }: HeaderProps) => {
     >
       <div className="backdrop-blur-sm bg-white/95">
         <div className="container mx-auto px-3 sm:px-4 py-3 md:py-4 flex items-center justify-between">
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <Link to="/" className="flex items-center gap-1.5 sm:gap-2 hover:opacity-80 transition-opacity">
             <img 
               src="https://cdn.poehali.dev/files/b809df5f-2020-472d-988b-5edd2cd86b69.png" 
               alt="HEVSR" 
               className="h-8 sm:h-10 md:h-12 w-auto"
             />
-          </div>
+          </Link>
 
           <nav className="hidden lg:flex gap-8 items-center">
             {navItems.map(item => (
@@ -84,12 +85,14 @@ const Header = ({ isBookingOpen, setIsBookingOpen }: HeaderProps) => {
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px]">
                 <SheetHeader>
-                  <SheetTitle className="flex items-center gap-2">
-                    <img 
-                      src="https://cdn.poehali.dev/files/b809df5f-2020-472d-988b-5edd2cd86b69.png" 
-                      alt="HEVSR" 
-                      className="h-8 w-auto"
-                    />
+                  <SheetTitle>
+                    <Link to="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+                      <img 
+                        src="https://cdn.poehali.dev/files/b809df5f-2020-472d-988b-5edd2cd86b69.png" 
+                        alt="HEVSR" 
+                        className="h-8 w-auto"
+                      />
+                    </Link>
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col gap-4 mt-8">
