@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -12,21 +12,36 @@ interface HeaderProps {
 
 const Header = ({ isBookingOpen, setIsBookingOpen }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
-    { href: '#services', label: 'Услуги' },
-    { href: '/promotions', label: 'Акции' },
-    { href: '#reviews', label: 'Отзывы' },
-    { href: '#blog', label: 'Блог' },
-    { href: '#brands', label: 'Бренды' },
-    { href: '#contacts', label: 'Контакты' }
+    { href: '#services', label: 'Услуги', isSection: true },
+    { href: '/promotions', label: 'Акции', isSection: false },
+    { href: '#reviews', label: 'Отзывы', isSection: true },
+    { href: '#blog', label: 'Блог', isSection: true },
+    { href: '#brands', label: 'Бренды', isSection: true },
+    { href: '#contacts', label: 'Контакты', isSection: true }
   ];
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (e: React.MouseEvent, href: string, isSection: boolean) => {
+    e.preventDefault();
     setIsMobileMenuOpen(false);
-    setTimeout(() => {
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+    
+    if (isSection) {
+      // If it's a section link and we're not on home page, navigate to home first
+      if (location.pathname !== '/') {
+        navigate('/' + href);
+      } else {
+        // If on home page, just scroll to section
+        setTimeout(() => {
+          document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    } else {
+      // If it's a page link, navigate to it
+      navigate(href);
+    }
   };
 
   return (
@@ -52,7 +67,8 @@ const Header = ({ isBookingOpen, setIsBookingOpen }: HeaderProps) => {
             {navItems.map(item => (
               <a 
                 key={item.href}
-                href={item.href} 
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href, item.isSection)}
                 className="hover:text-primary transition-colors text-sm font-medium"
               >
                 {item.label}
@@ -102,7 +118,7 @@ const Header = ({ isBookingOpen, setIsBookingOpen }: HeaderProps) => {
                     <a
                       key={item.href}
                       href={item.href}
-                      onClick={() => handleNavClick(item.href)}
+                      onClick={(e) => handleNavClick(e, item.href, item.isSection)}
                       className="text-lg hover:text-primary transition-colors py-2"
                     >
                       {item.label}
