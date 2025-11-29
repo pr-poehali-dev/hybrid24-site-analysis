@@ -58,13 +58,15 @@ const Header = ({ isBookingOpen, setIsBookingOpen }: HeaderProps) => {
           </nav>
 
           <div className="flex items-center gap-3">
-            <a 
-              href="tel:+79230166750" 
-              className="hidden sm:flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+            <Button 
+              asChild
+              className="gradient-primary btn-glow hidden sm:flex"
             >
-              <Icon name="Phone" size={20} className="text-primary" />
-              <span className="font-semibold text-sm md:text-base">+7 (923) 016-67-50</span>
-            </a>
+              <a href="tel:+79230166750">
+                <Icon name="Phone" size={20} />
+                +7 (923) 016-67-50
+              </a>
+            </Button>
 
             <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
               <DialogTrigger asChild>
