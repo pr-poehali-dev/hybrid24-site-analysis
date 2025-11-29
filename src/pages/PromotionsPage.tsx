@@ -10,6 +10,7 @@ import Footer from '@/components/Footer';
 import FloatingCallButton from '@/components/FloatingCallButton';
 import PromotionTimer from '@/components/PromotionTimer';
 import ShareButton from '@/components/ShareButton';
+import PromotionSubscribe from '@/components/PromotionSubscribe';
 
 const promotions = [
   {
@@ -144,7 +145,11 @@ const PromotionsPage = () => {
             ))}
           </div>
 
-          <div className="mt-16 text-center animate-fade-in">
+          <div className="mt-16 animate-fade-in">
+            <PromotionSubscribe />
+          </div>
+
+          <div className="mt-12 text-center animate-fade-in">
             <Card className="max-w-3xl mx-auto">
               <CardHeader>
                 <CardTitle className="text-2xl">Условия акций</CardTitle>
