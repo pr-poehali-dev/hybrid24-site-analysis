@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import BookingDialog from '@/components/BookingDialog';
 import Sections from '@/components/Sections';
 import Footer from '@/components/Footer';
+import FloatingCallButton from '@/components/FloatingCallButton';
 
 const Index = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -19,6 +20,8 @@ const Index = () => {
       <Sections setIsBookingOpen={setIsBookingOpen} />
       
       <Footer />
+      
+      <FloatingCallButton />
     </div>
   );
 };
