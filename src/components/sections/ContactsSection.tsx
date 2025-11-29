@@ -48,7 +48,7 @@ const ContactsSection = () => {
                 <CardTitle className="text-2xl mb-4">Как нас найти</CardTitle>
                 <div className="w-full h-[400px] rounded-lg overflow-hidden mb-4">
                   <iframe
-                    src="https://yandex.ru/map-widget/v1/?ll=92.873200%2C56.016200&z=16&l=map&pt=92.873200,56.016200,pm2rdm"
+                    src="https://yandex.ru/map-widget/v1/?um=constructor%3AjsXu7wrLoyMO2NDQwrUe7coyNJgd4u6z&amp;source=constructor"
                     width="100%"
                     height="100%"
                     frameBorder="0"
