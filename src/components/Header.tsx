@@ -57,7 +57,7 @@ const Header = ({ isBookingOpen, setIsBookingOpen }: HeaderProps) => {
         <div className="container mx-auto px-3 sm:px-4 py-3 md:py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-1.5 sm:gap-2 logo-glow">
             <img 
-              src="https://cdn.poehali.dev/files/b809df5f-2020-472d-988b-5edd2cd86b69.png" 
+              src="https://cdn.poehali.dev/files/3d75c71d-b131-4e61-ab96-350ab118a033.png" 
               alt="HEVSR" 
               className="h-8 sm:h-10 md:h-12 w-auto"
             />
@@ -106,7 +106,7 @@ const Header = ({ isBookingOpen, setIsBookingOpen }: HeaderProps) => {
                   <SheetTitle>
                     <Link to="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
                       <img 
-                        src="https://cdn.poehali.dev/files/b809df5f-2020-472d-988b-5edd2cd86b69.png" 
+                        src="https://cdn.poehali.dev/files/3d75c71d-b131-4e61-ab96-350ab118a033.png" 
                         alt="HEVSR" 
                         className="h-8 w-auto"
                       />
