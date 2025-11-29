@@ -40,6 +40,24 @@ const ContactsSection = () => {
               </CardHeader>
             </Card>
           </div>
+          
+          <div className="mt-12">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-2xl mb-4">Как нас найти</CardTitle>
+                <div className="w-full h-[400px] rounded-lg overflow-hidden">
+                  <iframe
+                    src="https://yandex.ru/map-widget/v1/?ll=92.873200%2C56.016200&z=16&l=map&pt=92.873200,56.016200,pm2rdm"
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    allowFullScreen
+                    style={{ position: 'relative' }}
+                  ></iframe>
+                </div>
+              </CardHeader>
+            </Card>
+          </div>
         </div>
       </div>
     </section>
