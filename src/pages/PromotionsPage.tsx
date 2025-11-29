@@ -8,6 +8,7 @@ import Header from '@/components/Header';
 import BookingDialog from '@/components/BookingDialog';
 import Footer from '@/components/Footer';
 import FloatingCallButton from '@/components/FloatingCallButton';
+import PromotionTimer from '@/components/PromotionTimer';
 
 const promotions = [
   {
@@ -17,7 +18,7 @@ const promotions = [
     discount: '-25%',
     oldPrice: '6 000 ₽',
     newPrice: '4 500 ₽',
-    validUntil: '31 декабря 2025',
+    validUntil: 'December 31, 2025 23:59:59',
     icon: 'Percent',
     details: 'Включает проверку всех систем автомобиля, замену масла и масляного фильтра, диагностику ходовой части'
   },
@@ -28,7 +29,7 @@ const promotions = [
     discount: 'Подарок',
     oldPrice: '8 000 ₽',
     newPrice: '6 000 ₽',
-    validUntil: '15 января 2026',
+    validUntil: 'January 15, 2026 23:59:59',
     icon: 'Gift',
     details: 'Покупайте 4 шины и получите бесплатный шиномонтаж, балансировку и утилизацию старых шин'
   },
@@ -50,7 +51,7 @@ const promotions = [
     discount: 'Бесплатно',
     oldPrice: '2 000 ₽',
     newPrice: '0 ₽',
-    validUntil: '31 марта 2026',
+    validUntil: 'March 31, 2026 23:59:59',
     icon: 'Search',
     details: 'При выполнении любого ремонта стоимостью от 5000 рублей — компьютерная диагностика бесплатно'
   },
@@ -61,7 +62,7 @@ const promotions = [
     discount: '-20%',
     oldPrice: '12 000 ₽',
     newPrice: '9 600 ₽',
-    validUntil: '28 февраля 2026',
+    validUntil: 'February 28, 2026 23:59:59',
     icon: 'Disc',
     details: 'Замена передних или задних тормозных колодок с проверкой тормозной системы'
   },
@@ -72,7 +73,7 @@ const promotions = [
     discount: '-30%',
     oldPrice: '7 000 ₽',
     newPrice: '4 900 ₽',
-    validUntil: '30 апреля 2026',
+    validUntil: 'April 30, 2026 23:59:59',
     icon: 'Wind',
     details: 'Антибактериальная обработка, заправка хладагентом, проверка герметичности системы'
   }
@@ -125,10 +126,7 @@ const PromotionsPage = () => {
                       )}
                       <span className="text-3xl font-bold text-primary">{promo.newPrice}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Icon name="Clock" size={16} />
-                      <span>Действует до: {promo.validUntil}</span>
-                    </div>
+                    <PromotionTimer validUntil={promo.validUntil} />
                     <Button className="w-full gradient-primary btn-glow mt-4" onClick={() => setIsBookingOpen(true)}>
                       Воспользоваться
                     </Button>
