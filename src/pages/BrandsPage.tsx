@@ -24,7 +24,13 @@ const BrandsPage = () => {
       try {
         const response = await fetch('https://functions.poehali.dev/3811becc-a55e-4be9-a710-283d3eee897f');
         const data = await response.json();
-        setBrands(data.brands || []);
+        
+        // Убираем дубли по id
+        const uniqueBrands = Array.from(
+          new Map((data.brands || []).map((b: Brand) => [b.id, b])).values()
+        );
+        
+        setBrands(uniqueBrands);
       } catch (error) {
         console.error('Error fetching brands:', error);
       } finally {
