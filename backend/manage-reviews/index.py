@@ -37,25 +37,40 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     
     try:
         if method == 'GET':
-            cursor.execute("""
-                SELECT id, customer_name, rating, review_text, service_name, 
-                       review_date, is_visible, created_at, updated_at
-                FROM reviews
-                WHERE is_visible = true
-                ORDER BY review_date DESC, created_at DESC
-            """)
+            query_params = event.get('queryStringParameters') or {}
+            show_all = query_params.get('show_all') == 'true'
+            
+            if show_all:
+                cursor.execute("""
+                    SELECT id, customer_name, rating, review_text, service_name, 
+                           review_date, is_visible, source, created_at, updated_at
+                    FROM reviews
+                    ORDER BY created_at DESC, review_date DESC
+                """)
+            else:
+                cursor.execute("""
+                    SELECT id, customer_name, rating, review_text, service_name, 
+                           review_date, is_visible, created_at, updated_at
+                    FROM reviews
+                    WHERE is_visible = true
+                    ORDER BY review_date DESC, created_at DESC
+                """)
             reviews = cursor.fetchall()
             
             formatted_reviews = []
             for review in reviews:
-                formatted_reviews.append({
+                review_data = {
                     'id': review['id'],
                     'name': review['customer_name'],
                     'rating': review['rating'],
                     'text': review['review_text'],
                     'service': review['service_name'] or 'Общий отзыв',
-                    'date': str(review['review_date'])
-                })
+                    'date': str(review['review_date']),
+                    'is_visible': review['is_visible']
+                }
+                if show_all:
+                    review_data['source'] = review.get('source', 'manual')
+                formatted_reviews.append(review_data)
             
             return {
                 'statusCode': 200,

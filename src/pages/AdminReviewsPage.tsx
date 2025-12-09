@@ -16,6 +16,8 @@ interface Review {
   text: string;
   service: string;
   date: string;
+  is_visible: boolean;
+  source?: string;
 }
 
 const AdminReviewsPage = () => {
@@ -24,6 +26,7 @@ const AdminReviewsPage = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
+  const [filterStatus, setFilterStatus] = useState<'all' | 'visible' | 'hidden'>('all');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingReview, setEditingReview] = useState<Review | null>(null);
   const [formData, setFormData] = useState({
@@ -57,7 +60,7 @@ const AdminReviewsPage = () => {
   const fetchReviews = async () => {
     setLoading(true);
     try {
-      const response = await fetch('https://functions.poehali.dev/24530517-9b0c-4a6b-957e-ac05025d52ce');
+      const response = await fetch('https://functions.poehali.dev/24530517-9b0c-4a6b-957e-ac05025d52ce?show_all=true');
       const data = await response.json();
       setReviews(data.reviews || []);
     } catch (error) {
@@ -207,6 +210,39 @@ const AdminReviewsPage = () => {
     }
   };
 
+  const handleToggleVisibility = async (reviewId: number, currentVisibility: boolean) => {
+    try {
+      const response = await fetch('https://functions.poehali.dev/24530517-9b0c-4a6b-957e-ac05025d52ce', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          review_id: reviewId,
+          is_visible: !currentVisibility
+        })
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Успешно",
+          description: !currentVisibility ? "Отзыв опубликован" : "Отзыв скрыт",
+        });
+        fetchReviews();
+      }
+    } catch (error) {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось изменить видимость отзыва",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const filteredReviews = reviews.filter(review => {
+    if (filterStatus === 'visible') return review.is_visible;
+    if (filterStatus === 'hidden') return !review.is_visible;
+    return true;
+  });
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -218,12 +254,13 @@ const AdminReviewsPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <h1 className="text-4xl font-bold mb-2">Управление отзывами</h1>
-            <p className="text-muted-foreground">Добавляйте и редактируйте отзывы клиентов</p>
-          </div>
-          <div className="flex gap-2">
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-4xl font-bold mb-2">Управление отзывами</h1>
+              <p className="text-muted-foreground">Модерируйте и публикуйте отзывы клиентов</p>
+            </div>
+            <div className="flex gap-2">
             <Button
               variant="outline"
               onClick={handleSyncDgis}
@@ -317,10 +354,33 @@ const AdminReviewsPage = () => {
               Назад
             </Button>
           </div>
+          </div>
+          <div className="flex gap-2 mb-4">
+            <Button
+              variant={filterStatus === 'all' ? 'default' : 'outline'}
+              onClick={() => setFilterStatus('all')}
+            >
+              Все ({reviews.length})
+            </Button>
+            <Button
+              variant={filterStatus === 'visible' ? 'default' : 'outline'}
+              onClick={() => setFilterStatus('visible')}
+            >
+              <Icon name="Eye" className="mr-2" size={18} />
+              Видимые ({reviews.filter(r => r.is_visible).length})
+            </Button>
+            <Button
+              variant={filterStatus === 'hidden' ? 'default' : 'outline'}
+              onClick={() => setFilterStatus('hidden')}
+            >
+              <Icon name="EyeOff" className="mr-2" size={18} />
+              Скрытые ({reviews.filter(r => !r.is_visible).length})
+            </Button>
+          </div>
         </div>
 
         <div className="grid gap-4">
-          {reviews.length === 0 ? (
+          {filteredReviews.length === 0 ? (
             <Card>
               <CardContent className="p-12 text-center">
                 <Icon name="MessageSquare" className="mx-auto mb-4 text-muted-foreground" size={48} />
@@ -328,12 +388,24 @@ const AdminReviewsPage = () => {
               </CardContent>
             </Card>
           ) : (
-            reviews.map((review) => (
-              <Card key={review.id}>
+            filteredReviews.map((review) => (
+              <Card key={review.id} className={!review.is_visible ? 'opacity-60' : ''}>
                 <CardHeader>
                   <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-lg">{review.name}</CardTitle>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <CardTitle className="text-lg">{review.name}</CardTitle>
+                        {review.source === '2gis' && (
+                          <span className="text-xs px-2 py-1 bg-blue-500/10 text-blue-600 rounded-full">
+                            2ГИС
+                          </span>
+                        )}
+                        {!review.is_visible && (
+                          <span className="text-xs px-2 py-1 bg-orange-500/10 text-orange-600 rounded-full">
+                            Скрыт
+                          </span>
+                        )}
+                      </div>
                       <div className="flex items-center gap-2 mt-2">
                         <div className="flex gap-1">
                           {Array.from({ length: review.rating }).map((_, i) => (
@@ -344,6 +416,14 @@ const AdminReviewsPage = () => {
                       </div>
                     </div>
                     <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleToggleVisibility(review.id, review.is_visible)}
+                        title={review.is_visible ? 'Скрыть отзыв' : 'Показать отзыв'}
+                      >
+                        <Icon name={review.is_visible ? "EyeOff" : "Eye"} size={16} />
+                      </Button>
                       <Button variant="outline" size="sm" onClick={() => handleEdit(review)}>
                         <Icon name="Pencil" size={16} />
                       </Button>
