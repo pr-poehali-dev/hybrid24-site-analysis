@@ -301,6 +301,16 @@ const PromotionsReviewsSection = ({ setIsBookingOpen }: PromotionsReviewsSection
             ))}
           </div>
           )}
+          {blogPosts.length > 0 && (
+            <div className="text-center mt-12 animate-fade-in">
+              <Link to="/blog">
+                <Button variant="outline" size="lg" className="group">
+                  Все статьи
+                  <Icon name="ArrowRight" size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </section>
     </>
