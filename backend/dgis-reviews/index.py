@@ -143,6 +143,8 @@ def sync_reviews_from_dgis() -> Dict[str, Any]:
         
         for review in reviews_data:
             source_id = review.get('id', '')
+            rating = review.get('rating', 5)
+            is_visible = rating >= 4
             
             cur.execute('''
                 SELECT id FROM reviews WHERE source = '2gis' AND source_id = %s
@@ -153,28 +155,30 @@ def sync_reviews_from_dgis() -> Dict[str, Any]:
             if existing:
                 cur.execute('''
                     UPDATE reviews
-                    SET customer_name = %s, rating = %s, review_date = %s, review_text = %s, service_name = %s, updated_at = NOW()
+                    SET customer_name = %s, rating = %s, review_date = %s, review_text = %s, service_name = %s, is_visible = %s, updated_at = NOW()
                     WHERE source = '2gis' AND source_id = %s
                 ''', (
                     review.get('name', 'Клиент'),
-                    review.get('rating', 5),
+                    rating,
                     review.get('date_obj'),
                     review.get('text', ''),
                     review.get('service', 'Отзыв с 2ГИС'),
+                    is_visible,
                     source_id
                 ))
                 updated_count += 1
             else:
                 cur.execute('''
                     INSERT INTO reviews (customer_name, rating, review_date, review_text, service_name, source, source_id, is_visible, created_at, updated_at)
-                    VALUES (%s, %s, %s, %s, %s, '2gis', %s, TRUE, NOW(), NOW())
+                    VALUES (%s, %s, %s, %s, %s, '2gis', %s, %s, NOW(), NOW())
                 ''', (
                     review.get('name', 'Клиент'),
-                    review.get('rating', 5),
+                    rating,
                     review.get('date_obj'),
                     review.get('text', ''),
                     review.get('service', 'Отзыв с 2ГИС'),
-                    source_id
+                    source_id,
+                    is_visible
                 ))
                 added_count += 1
         
