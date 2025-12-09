@@ -291,10 +291,12 @@ const BlogPostPage = () => {
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="container mx-auto px-4 h-full flex items-center relative">
           <div className="max-w-4xl">
-            <Link to="/" className="inline-flex items-center text-white/80 hover:text-white mb-8 transition-colors">
-              <Icon name="ArrowLeft" className="mr-2" size={18} />
-              Вернуться на главную
-            </Link>
+            <div className="mb-6">
+              <Link to="/" className="inline-flex items-center text-white/80 hover:text-white transition-colors">
+                <Icon name="ArrowLeft" className="mr-2" size={18} />
+                Вернуться на главную
+              </Link>
+            </div>
             <Badge className="mb-4">{post.category}</Badge>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{post.title}</h1>
             <div className="flex items-center gap-4 text-white/80">
