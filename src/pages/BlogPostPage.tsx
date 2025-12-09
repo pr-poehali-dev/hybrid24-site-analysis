@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
@@ -230,6 +230,7 @@ const fallbackPosts: BlogPost[] = [
 
 const BlogPostPage = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -292,10 +293,13 @@ const BlogPostPage = () => {
         <div className="container mx-auto px-4 h-full flex items-center relative">
           <div className="max-w-4xl">
             <div className="mb-6">
-              <Link to="/" className="inline-flex items-center text-white/80 hover:text-white transition-colors">
+              <button 
+                onClick={() => navigate(-1)}
+                className="inline-flex items-center text-white/80 hover:text-white transition-colors"
+              >
                 <Icon name="ArrowLeft" className="mr-2" size={18} />
-                Вернуться на главную
-              </Link>
+                Назад
+              </button>
             </div>
             <Badge className="mb-4">{post.category}</Badge>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">{post.title}</h1>
