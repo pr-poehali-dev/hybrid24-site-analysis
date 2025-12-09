@@ -466,6 +466,7 @@ const AdminBlogPage = () => {
                   </form>
                 </DialogContent>
               </Dialog>
+              </div>
             </CardTitle>
           </CardHeader>
           <CardContent>
