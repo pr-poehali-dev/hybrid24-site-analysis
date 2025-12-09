@@ -170,57 +170,86 @@ const PromotionsReviewsSection = ({ setIsBookingOpen }: PromotionsReviewsSection
         </div>
       </section>
 
-      <section id="reviews" className="py-12 md:py-16">
+      <section id="reviews" className="py-12 md:py-16 bg-gradient-to-b from-background to-card/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 md:mb-12 animate-fade-in">
+            <div className="inline-flex items-center gap-3 mb-4 px-4 py-2 bg-primary/10 rounded-full">
+              <Icon name="Star" size={20} className="text-primary fill-primary" />
+              <span className="text-sm font-semibold text-primary">ДОВЕРИЕ КЛИЕНТОВ</span>
+            </div>
             <Link to="/reviews" className="group inline-block">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 hover:text-primary transition-colors cursor-pointer inline-flex items-center gap-3">
                 Отзывы клиентов
                 <Icon name="ArrowRight" size={32} className="group-hover:translate-x-2 transition-transform" />
               </h2>
             </Link>
-            <p className="text-muted-foreground text-base md:text-lg">Что говорят о нас наши клиенты</p>
+            <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
+              Реальные истории от наших клиентов — качество, которому доверяют
+            </p>
           </div>
           {loadingReviews ? (
             <div className="text-center py-12">
-              <Icon name="Loader" className="animate-spin mx-auto" size={48} />
+              <Icon name="Loader" className="animate-spin mx-auto text-primary" size={48} />
             </div>
           ) : reviews.length === 0 ? (
             <div className="text-center py-12">
-              <Icon name="MessageSquare" className="mx-auto mb-4 text-muted-foreground" size={48} />
-              <p className="text-muted-foreground">Отзывов пока нет</p>
+              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-card/50 flex items-center justify-center">
+                <Icon name="MessageSquare" className="text-muted-foreground" size={48} />
+              </div>
+              <p className="text-muted-foreground text-lg">Отзывов пока нет</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
               {reviews.map((review, index) => (
               <Card
                 key={review.id}
-                className="hover-scale animate-fade-in"
+                className="hover-scale animate-fade-in border-2 hover:border-primary/50 transition-all duration-300 bg-card/80 backdrop-blur"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-xl">{review.name}</CardTitle>
-                      <CardDescription className="mt-1">{review.date}</CardDescription>
+                <CardHeader className="pb-3">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <CardTitle className="text-xl mb-1 flex items-center gap-2">
+                        {review.name}
+                        <Icon name="BadgeCheck" size={18} className="text-primary" />
+                      </CardTitle>
+                      <CardDescription className="flex items-center gap-2">
+                        <Icon name="Calendar" size={14} />
+                        {review.date}
+                      </CardDescription>
                     </div>
-                    <div className="flex gap-1">
+                    <div className="flex gap-0.5 bg-yellow-500/10 p-2 rounded-lg">
                       {Array.from({ length: review.rating }).map((_, i) => (
-                        <Icon key={i} name="Star" size={18} className="text-yellow-500 fill-yellow-500" />
+                        <Icon key={i} name="Star" size={16} className="text-yellow-500 fill-yellow-500" />
                       ))}
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground mb-3">{review.text}</p>
-                  <Badge variant="outline" className="mt-2">
-                    <Icon name="CheckCircle" size={14} className="mr-1" />
-                    {review.service}
-                  </Badge>
+                  <div className="relative">
+                    <Icon name="Quote" size={32} className="absolute -top-2 -left-2 text-primary/20" />
+                    <p className="text-muted-foreground leading-relaxed pl-6">{review.text}</p>
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-border/50">
+                    <Badge variant="outline" className="bg-primary/5 hover:bg-primary/10 transition-colors">
+                      <Icon name="Wrench" size={14} className="mr-1.5" />
+                      {review.service}
+                    </Badge>
+                  </div>
                 </CardContent>
               </Card>
               ))}
-            </div>
+              </div>
+              <div className="text-center mt-10 animate-fade-in" style={{ animationDelay: '400ms' }}>
+                <Link to="/reviews">
+                  <Button size="lg" variant="outline" className="group hover:bg-primary hover:text-primary-foreground transition-all">
+                    Все отзывы
+                    <Icon name="ArrowRight" size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+              </div>
+            </>
           )}
         </div>
       </section>
