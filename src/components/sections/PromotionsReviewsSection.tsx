@@ -173,7 +173,7 @@ const PromotionsReviewsSection = ({ setIsBookingOpen }: PromotionsReviewsSection
       <section id="reviews" className="py-12 md:py-16 bg-gradient-to-b from-background to-card/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 md:mb-12 animate-fade-in">
-            <div className="inline-flex items-center gap-3 mb-4 px-4 py-2 bg-primary/10 rounded-full">
+            <div className="inline-flex items-center gap-3 mb-6 px-4 py-2 bg-primary/10 rounded-full">
               <Icon name="Star" size={20} className="text-primary fill-primary" />
               <span className="text-sm font-semibold text-primary">ДОВЕРИЕ КЛИЕНТОВ</span>
             </div>
