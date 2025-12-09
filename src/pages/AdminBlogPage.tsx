@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
+import { seedBlogPosts } from '@/utils/seedBlogPosts';
 
 interface BlogSection {
   title: string;
@@ -38,6 +39,7 @@ const AdminBlogPage = () => {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
+  const [importing, setImporting] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     excerpt: '',
@@ -220,6 +222,38 @@ const AdminBlogPage = () => {
     navigate('/admin/login');
   };
 
+  const handleImportDemoPosts = async () => {
+    if (!confirm('Загрузить 3 демо-статьи в блог? Это добавит готовые примеры статей.')) return;
+    
+    setImporting(true);
+    try {
+      const results = await seedBlogPosts();
+      const successCount = results.filter(r => r.success).length;
+      
+      if (successCount > 0) {
+        toast({
+          title: 'Успешно',
+          description: `Загружено статей: ${successCount} из ${results.length}`
+        });
+        fetchPosts();
+      } else {
+        toast({
+          title: 'Ошибка',
+          description: 'Не удалось загрузить статьи',
+          variant: 'destructive'
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Ошибка',
+        description: 'Произошла ошибка при импорте',
+        variant: 'destructive'
+      });
+    } finally {
+      setImporting(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -249,16 +283,31 @@ const AdminBlogPage = () => {
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
               <span>Статьи блога</span>
-              <Dialog open={dialogOpen} onOpenChange={(open) => {
-                setDialogOpen(open);
-                if (!open) resetForm();
-              }}>
-                <DialogTrigger asChild>
-                  <Button>
-                    <Icon name="Plus" className="mr-2" size={18} />
-                    Добавить статью
+              <div className="flex gap-2">
+                {posts.length === 0 && (
+                  <Button
+                    variant="outline"
+                    onClick={handleImportDemoPosts}
+                    disabled={importing}
+                  >
+                    {importing ? (
+                      <Icon name="Loader" className="mr-2 animate-spin" size={18} />
+                    ) : (
+                      <Icon name="Download" className="mr-2" size={18} />
+                    )}
+                    Импорт демо-статей
                   </Button>
-                </DialogTrigger>
+                )}
+                <Dialog open={dialogOpen} onOpenChange={(open) => {
+                  setDialogOpen(open);
+                  if (!open) resetForm();
+                }}>
+                  <DialogTrigger asChild>
+                    <Button>
+                      <Icon name="Plus" className="mr-2" size={18} />
+                      Добавить статью
+                    </Button>
+                  </DialogTrigger>
                 <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
                     <DialogTitle>
