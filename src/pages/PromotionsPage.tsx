@@ -12,6 +12,7 @@ import FloatingCallButton from '@/components/FloatingCallButton';
 import PromotionTimer from '@/components/PromotionTimer';
 import ShareButton from '@/components/ShareButton';
 import PromotionSubscribe from '@/components/PromotionSubscribe';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 const promotions = [
   {
@@ -204,6 +205,7 @@ const PromotionsPage = () => {
 
       <Footer />
       <FloatingCallButton />
+      <ScrollToTopButton />
     </div>
   );
 };

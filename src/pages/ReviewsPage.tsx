@@ -9,6 +9,7 @@ import Header from '@/components/Header';
 import BookingDialog from '@/components/BookingDialog';
 import Footer from '@/components/Footer';
 import FloatingCallButton from '@/components/FloatingCallButton';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 interface Review {
   id: number | string;
@@ -190,6 +191,7 @@ const ReviewsPage = () => {
 
       <Footer />
       <FloatingCallButton />
+      <ScrollToTopButton />
     </div>
   );
 };
