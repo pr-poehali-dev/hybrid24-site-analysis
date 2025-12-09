@@ -200,7 +200,7 @@ const AdminBlogPage = () => {
   };
 
   const handleImportDemoPosts = async () => {
-    if (!confirm('Загрузить 3 демо-статьи в блог? Это добавит готовые примеры статей.')) return;
+    if (!confirm('Загрузить 6 демо-статей в блог? Это добавит готовые примеры статей.')) return;
     
     setImporting(true);
     try {
