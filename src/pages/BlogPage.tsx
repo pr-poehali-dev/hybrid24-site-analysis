@@ -28,6 +28,8 @@ const BlogPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('Все');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [sortBy, setSortBy] = useState<'date' | 'popular'>('date');
+  const [viewCounts, setViewCounts] = useState<Record<number, number>>({});
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -51,6 +53,19 @@ const BlogPage = () => {
     fetchPosts();
   }, []);
 
+  useEffect(() => {
+    const loadedCounts = localStorage.getItem('blogViewCounts');
+    if (loadedCounts) {
+      setViewCounts(JSON.parse(loadedCounts));
+    }
+  }, []);
+
+  const incrementViewCount = (postId: number) => {
+    const newCounts = { ...viewCounts, [postId]: (viewCounts[postId] || 0) + 1 };
+    setViewCounts(newCounts);
+    localStorage.setItem('blogViewCounts', JSON.stringify(newCounts));
+  };
+
   const categories = ['Все', ...Array.from(new Set(posts.map(post => post.category)))];
   
   const filteredPosts = posts
@@ -59,7 +74,13 @@ const BlogPage = () => {
       searchQuery === '' || 
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    )
+    .sort((a, b) => {
+      if (sortBy === 'popular') {
+        return (viewCounts[b.id] || 0) - (viewCounts[a.id] || 0);
+      }
+      return 0;
+    });
 
   return (
     <div className="min-h-screen">
@@ -104,17 +125,40 @@ const BlogPage = () => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-3 mb-12 animate-fade-in">
-                {categories.map((category) => (
+              <div className="flex flex-col gap-4 mb-12">
+                <div className="flex flex-wrap justify-center gap-3 animate-fade-in">
+                  {categories.map((category) => (
+                    <Button
+                      key={category}
+                      variant={selectedCategory === category ? 'default' : 'outline'}
+                      onClick={() => setSelectedCategory(category)}
+                      className={selectedCategory === category ? 'gradient-primary' : ''}
+                    >
+                      {category}
+                    </Button>
+                  ))}
+                </div>
+                
+                <div className="flex justify-center gap-2 animate-fade-in">
                   <Button
-                    key={category}
-                    variant={selectedCategory === category ? 'default' : 'outline'}
-                    onClick={() => setSelectedCategory(category)}
-                    className={selectedCategory === category ? 'gradient-primary' : ''}
+                    variant={sortBy === 'date' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSortBy('date')}
+                    className={sortBy === 'date' ? 'gradient-primary' : ''}
                   >
-                    {category}
+                    <Icon name="Calendar" size={16} className="mr-2" />
+                    По дате
                   </Button>
-                ))}
+                  <Button
+                    variant={sortBy === 'popular' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSortBy('popular')}
+                    className={sortBy === 'popular' ? 'gradient-primary' : ''}
+                  >
+                    <Icon name="TrendingUp" size={16} className="mr-2" />
+                    По популярности
+                  </Button>
+                </div>
               </div>
             </>
           )}
@@ -158,7 +202,11 @@ const BlogPage = () => {
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
                 {filteredPosts.map((post, index) => (
-                  <Link to={`/blog/${post.id}`} key={post.id}>
+                  <Link 
+                    to={`/blog/${post.id}`} 
+                    key={post.id}
+                    onClick={() => incrementViewCount(post.id)}
+                  >
                     <Card
                       className="hover-scale cursor-pointer animate-fade-in h-full"
                       style={{ animationDelay: `${index * 50}ms` }}
@@ -183,9 +231,17 @@ const BlogPage = () => {
                           {post.excerpt}
                         </CardDescription>
                         <div className="flex items-center justify-between text-sm text-muted-foreground">
-                          <div className="flex items-center gap-1">
-                            <Icon name="Clock" size={14} />
-                            <span>{post.readTime}</span>
+                          <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-1">
+                              <Icon name="Clock" size={14} />
+                              <span>{post.readTime}</span>
+                            </div>
+                            {viewCounts[post.id] > 0 && (
+                              <div className="flex items-center gap-1">
+                                <Icon name="Eye" size={14} />
+                                <span>{viewCounts[post.id]}</span>
+                              </div>
+                            )}
                           </div>
                           <div className="flex items-center gap-1 text-primary">
                             <span>Читать</span>
