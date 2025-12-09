@@ -313,10 +313,15 @@ const BlogPostPage = () => {
       <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
         <BookingDialog setIsBookingOpen={setIsBookingOpen} />
       </Dialog>
-      <div 
-        className="relative h-[400px] bg-cover bg-center"
-        style={{ backgroundImage: `url(${post.image})` }}
-      >
+      <div className="relative h-[400px] bg-gray-900 overflow-hidden">
+        <img 
+          src={post.image} 
+          alt={post.title}
+          className="absolute inset-0 w-full h-full object-cover"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none';
+          }}
+        />
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="container mx-auto px-4 h-full flex items-center relative">
           <div className="max-w-4xl">
