@@ -284,20 +284,18 @@ const AdminBlogPage = () => {
             <CardTitle className="flex items-center justify-between">
               <span>Статьи блога</span>
               <div className="flex gap-2">
-                {posts.length === 0 && (
-                  <Button
-                    variant="outline"
-                    onClick={handleImportDemoPosts}
-                    disabled={importing}
-                  >
-                    {importing ? (
-                      <Icon name="Loader" className="mr-2 animate-spin" size={18} />
-                    ) : (
-                      <Icon name="Download" className="mr-2" size={18} />
-                    )}
-                    Импорт демо-статей
-                  </Button>
-                )}
+                <Button
+                  variant="outline"
+                  onClick={handleImportDemoPosts}
+                  disabled={importing}
+                >
+                  {importing ? (
+                    <Icon name="Loader" className="mr-2 animate-spin" size={18} />
+                  ) : (
+                    <Icon name="Download" className="mr-2" size={18} />
+                  )}
+                  Импорт демо-статей
+                </Button>
                 <Dialog open={dialogOpen} onOpenChange={(open) => {
                   setDialogOpen(open);
                   if (!open) resetForm();
