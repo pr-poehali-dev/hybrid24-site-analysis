@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { Dialog } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
+import Header from '@/components/Header';
+import BookingDialog from '@/components/BookingDialog';
+import Footer from '@/components/Footer';
+import FloatingCallButton from '@/components/FloatingCallButton';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 interface BlogPost {
@@ -234,6 +239,7 @@ const BlogPostPage = () => {
   const navigate = useNavigate();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -261,31 +267,52 @@ const BlogPostPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Icon name="Loader" className="animate-spin" size={48} />
+      <div className="min-h-screen">
+        <Header isBookingOpen={isBookingOpen} setIsBookingOpen={setIsBookingOpen} />
+        <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
+          <BookingDialog setIsBookingOpen={setIsBookingOpen} />
+        </Dialog>
+        <div className="min-h-screen flex items-center justify-center">
+          <Icon name="Loader" className="animate-spin" size={48} />
+        </div>
+        <Footer />
+        <FloatingCallButton />
       </div>
     );
   }
 
   if (!post) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <Icon name="FileQuestion" size={64} className="mx-auto mb-4 text-muted-foreground" />
-          <h1 className="text-2xl font-bold mb-4">Статья не найдена</h1>
-          <Button asChild>
-            <Link to="/">
-              <Icon name="ArrowLeft" className="mr-2" size={18} />
-              На главную
-            </Link>
-          </Button>
+      <div className="min-h-screen">
+        <Header isBookingOpen={isBookingOpen} setIsBookingOpen={setIsBookingOpen} />
+        <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
+          <BookingDialog setIsBookingOpen={setIsBookingOpen} />
+        </Dialog>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <Icon name="FileQuestion" size={64} className="mx-auto mb-4 text-muted-foreground" />
+            <h1 className="text-2xl font-bold mb-4">Статья не найдена</h1>
+            <Button asChild>
+              <Link to="/">
+                <Icon name="ArrowLeft" className="mr-2" size={18} />
+                На главную
+              </Link>
+            </Button>
+          </div>
         </div>
+        <Footer />
+        <FloatingCallButton />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
+      <Header isBookingOpen={isBookingOpen} setIsBookingOpen={setIsBookingOpen} />
+      
+      <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
+        <BookingDialog setIsBookingOpen={setIsBookingOpen} />
+      </Dialog>
       <div 
         className="relative h-[400px] bg-cover bg-center"
         style={{ backgroundImage: `url(${post.image})` }}
@@ -374,6 +401,9 @@ const BlogPostPage = () => {
           </Button>
         </div>
       </article>
+
+      <Footer />
+      <FloatingCallButton />
       <ScrollToTopButton />
     </div>
   );
