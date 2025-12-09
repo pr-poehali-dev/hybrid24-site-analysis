@@ -4,6 +4,7 @@ import { Dialog } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
 import Header from '@/components/Header';
 import BookingDialog from '@/components/BookingDialog';
@@ -26,6 +27,7 @@ const BlogPage = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('Все');
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -51,9 +53,13 @@ const BlogPage = () => {
 
   const categories = ['Все', ...Array.from(new Set(posts.map(post => post.category)))];
   
-  const filteredPosts = selectedCategory === 'Все' 
-    ? posts 
-    : posts.filter(post => post.category === selectedCategory);
+  const filteredPosts = posts
+    .filter(post => selectedCategory === 'Все' || post.category === selectedCategory)
+    .filter(post => 
+      searchQuery === '' || 
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
   return (
     <div className="min-h-screen">
@@ -74,18 +80,43 @@ const BlogPage = () => {
           </div>
 
           {!loading && posts.length > 0 && (
-            <div className="flex flex-wrap justify-center gap-3 mb-12 animate-fade-in">
-              {categories.map((category) => (
-                <Button
-                  key={category}
-                  variant={selectedCategory === category ? 'default' : 'outline'}
-                  onClick={() => setSelectedCategory(category)}
-                  className={selectedCategory === category ? 'gradient-primary' : ''}
-                >
-                  {category}
-                </Button>
-              ))}
-            </div>
+            <>
+              <div className="max-w-2xl mx-auto mb-8 animate-fade-in">
+                <div className="relative">
+                  <Icon name="Search" size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    type="text"
+                    placeholder="Поиск статей по названию или содержанию..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 h-12 text-base"
+                  />
+                  {searchQuery && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setSearchQuery('')}
+                      className="absolute right-2 top-1/2 -translate-y-1/2"
+                    >
+                      <Icon name="X" size={16} />
+                    </Button>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-wrap justify-center gap-3 mb-12 animate-fade-in">
+                {categories.map((category) => (
+                  <Button
+                    key={category}
+                    variant={selectedCategory === category ? 'default' : 'outline'}
+                    onClick={() => setSelectedCategory(category)}
+                    className={selectedCategory === category ? 'gradient-primary' : ''}
+                  >
+                    {category}
+                  </Button>
+                ))}
+              </div>
+            </>
           )}
 
           {loading ? (
@@ -105,8 +136,23 @@ const BlogPage = () => {
           ) : filteredPosts.length === 0 ? (
             <div className="text-center py-20">
               <Icon name="Search" className="mx-auto mb-4 text-muted-foreground" size={64} />
-              <h3 className="text-2xl font-bold mb-2">Статей в этой категории нет</h3>
-              <p className="text-muted-foreground mb-6">Попробуйте выбрать другую категорию</p>
+              <h3 className="text-2xl font-bold mb-2">
+                {searchQuery ? 'Ничего не найдено' : 'Статей в этой категории нет'}
+              </h3>
+              <p className="text-muted-foreground mb-6">
+                {searchQuery ? 'Попробуйте изменить поисковый запрос' : 'Попробуйте выбрать другую категорию'}
+              </p>
+              {(searchQuery || selectedCategory !== 'Все') && (
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setSearchQuery('');
+                    setSelectedCategory('Все');
+                  }}
+                >
+                  Сбросить фильтры
+                </Button>
+              )}
             </div>
           ) : (
             <>
