@@ -354,17 +354,20 @@ const PromotionsReviewsSection = ({ setIsBookingOpen }: PromotionsReviewsSection
             {blogPosts.map((post, index) => (
               <Link key={post.id} to={`/blog/${post.id}`}>
                 <Card
-                  className="hover-scale cursor-pointer animate-fade-in h-full"
+                  className="hover-scale cursor-pointer animate-fade-in h-full overflow-hidden"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div 
-                    className="h-48 bg-cover bg-center rounded-t-lg relative"
-                    style={{ backgroundImage: `url(${post.image})` }}
+                    className="h-48 bg-cover bg-center rounded-t-lg relative overflow-hidden group"
                   >
-                    <div className="h-full bg-gradient-to-b from-transparent to-black/60 rounded-t-lg flex items-end p-4">
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                      style={{ backgroundImage: `url(${post.image})` }}
+                    ></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 rounded-t-lg flex items-end p-4">
                       <Badge className="gradient-accent">{post.category}</Badge>
                     </div>
-                    <Badge className="absolute top-3 right-3 bg-gradient-to-r from-orange-500 to-red-500 text-white border-0">
+                    <Badge className="absolute top-3 right-3 bg-gradient-to-r from-orange-500 to-red-500 text-white border-0 z-10">
                       <Icon name="Flame" size={14} className="mr-1" />
                       #{index + 1}
                     </Badge>
