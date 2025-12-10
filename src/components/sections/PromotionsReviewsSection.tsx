@@ -64,6 +64,7 @@ interface PromotionsReviewsSectionProps {
 
 const PromotionsReviewsSection = ({ setIsBookingOpen }: PromotionsReviewsSectionProps) => {
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [allReviews, setAllReviews] = useState<Review[]>([]);
   const [loadingReviews, setLoadingReviews] = useState(true);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loadingBlog, setLoadingBlog] = useState(true);
@@ -86,9 +87,11 @@ const PromotionsReviewsSection = ({ setIsBookingOpen }: PromotionsReviewsSection
         const data = await response.json();
         
         if (response.ok && data.reviews && data.reviews.length > 0) {
+          setAllReviews(data.reviews);
           const shuffledReviews = shuffleArray(data.reviews);
           setReviews(shuffledReviews.slice(0, 3));
         } else {
+          setAllReviews([]);
           setReviews([]);
         }
       } catch (error) {
@@ -143,6 +146,14 @@ const PromotionsReviewsSection = ({ setIsBookingOpen }: PromotionsReviewsSection
   const truncateText = (text: string, maxLength: number = 150) => {
     if (text.length <= maxLength) return text;
     return text.slice(0, maxLength) + '...';
+  };
+
+  const refreshReviews = () => {
+    if (allReviews.length > 0) {
+      const shuffledReviews = shuffleArray(allReviews);
+      setReviews(shuffledReviews.slice(0, 3));
+      setExpandedReviews(new Set());
+    }
   };
 
   return (
@@ -295,7 +306,16 @@ const PromotionsReviewsSection = ({ setIsBookingOpen }: PromotionsReviewsSection
                 );
               })}
               </div>
-              <div className="text-center mt-10 animate-fade-in" style={{ animationDelay: '400ms' }}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10 animate-fade-in" style={{ animationDelay: '400ms' }}>
+                <Button 
+                  size="lg" 
+                  variant="default" 
+                  onClick={refreshReviews}
+                  className="group hover:scale-105 transition-all"
+                >
+                  <Icon name="RefreshCw" size={18} className="mr-2 group-hover:rotate-180 transition-transform duration-500" />
+                  Показать другие отзывы
+                </Button>
                 <Link to="/reviews">
                   <Button size="lg" variant="outline" className="group hover:bg-primary hover:text-primary-foreground transition-all">
                     Все отзывы
