@@ -14,7 +14,7 @@ const HeroSection = ({ setIsBookingOpen }: HeroSectionProps) => {
         style={{
           backgroundImage: 'url(https://cdn.poehali.dev/files/2025-12-13_14-19-48.png)',
           backgroundSize: 'cover',
-          backgroundPosition: 'right center',
+          backgroundPosition: 'right bottom',
           backgroundRepeat: 'no-repeat',
         }}
       />
