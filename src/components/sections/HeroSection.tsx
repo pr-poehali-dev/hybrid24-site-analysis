@@ -10,15 +10,15 @@ const HeroSection = ({ setIsBookingOpen }: HeroSectionProps) => {
   return (
     <section className="py-12 md:py-20 lg:py-32 relative overflow-hidden">
       <div 
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-60"
         style={{
           backgroundImage: 'url(https://cdn.poehali.dev/files/2025-12-13_14-12-35.png)',
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'right center',
           backgroundRepeat: 'no-repeat',
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/70" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
