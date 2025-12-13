@@ -12,7 +12,7 @@ const HeroSection = ({ setIsBookingOpen }: HeroSectionProps) => {
       <div 
         className="absolute inset-0 opacity-90"
         style={{
-          backgroundImage: 'url(https://cdn.poehali.dev/files/2025-12-13_14-12-35.png)',
+          backgroundImage: 'url(https://cdn.poehali.dev/files/2025-12-13_14-17-13.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'right center',
           backgroundRepeat: 'no-repeat',
